@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Buy History
+{% endblock %}
+
+{% block main %}
+<table class="table">
+    <thead>
+        <tr>
+            <th class="text-start">Symbol</th>
+            <th class="text-end">Shares</th>
+            <th class="text-end">Price</th>
+            <th class="text-end">Type</th>
+            <th class="text-end">Transacted</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for data in datas %}
+            <tr>
+                <td class="text-start">{{data["symbol"]}}</td>
+                <td class="text-end">{{data["amount"]}}</td>
+                <td class="text-end">{{data["price"] | usd}}</td>
+                {% if data["tx_type"] == "BUY" %}
+                <td class="text-end text-success">{{data["tx_type"]}}</td>
+                {% else %}
+                <td class="text-end text-danger">{{data["tx_type"]}}</td>
+                {% endif %}
+                <td class="text-end">{{data["tx_date"]}}</td>
+            </tr>
+            {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
